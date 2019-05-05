@@ -45,7 +45,7 @@ class Net(nn.Module):
 
     def forward(self, x):
         x = x.view(-1, self.d_in).float()
-        x = F.relu(self.fc1(x))
+        x = torch.sigmoid(self.fc1(x))
         x = self.fc1_drop(x)
         return F.log_softmax(self.fc2(x), dim=1)
 
@@ -63,22 +63,23 @@ def train():
     lossv, accv, = [], []
     losst, acct = [], []
     for epoch in range(1, epochs + 1):
-        mt.train(model,optimizer,criterion,train_loader,epoch,losstr,log_interval=1000)
+        mt.train(model,optimizer,criterion,train_loader,epoch,losstr,log_interval=300)
         mt.validate(model,criterion,validation_loader,lossv, accv)
-        mt.validate(model,criterion,test_loader,losst, acct)
+        mt.validate(model,criterion,test_loader,losst, acct,testing=True)
 
     return acct[-1], losstr,lossv,accv,losst,acct
 
-def plot():
+def plot(losstr,lossv,accv,losst,acct):
     plt.plot(np.arange(1,epochs+1), losstr)
     plt.plot(np.arange(1,epochs+1), accv)
     plt.title('Loss & Accuracy over Epochs\nActivation: Relu\nDropout={},Momentum={},Weight_decay={}'.format(dropout,momentum,weight_decay))
     plt.legend(['Training Loss','Validation Accuracy (%)'])
 
     plt.savefig('images/q3_d_{}_m_{}_wd_{}.png'.format(dropout,momentum,weight_decay))
-    plt.show()
+
+    return plt
 
 if __name__ == "__main__":
     end_acc,losstr,lossv,accv,losst,acct = train()
-    print(end_acc,file=sys.stdout)
+    print('Final testing acc after {} epochs: {}'.format(epochs,end_acc),file=sys.stdout)
     plot(losstr,lossv,accv,losst,acct)

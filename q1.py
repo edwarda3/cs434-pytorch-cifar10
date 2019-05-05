@@ -61,7 +61,7 @@ def train():
     for epoch in range(1, epochs + 1):
         mt.train(model,optimizer,criterion,train_loader,epoch,losstr,log_interval=1000)
         mt.validate(model,criterion,validation_loader,lossv, accv)
-        mt.validate(model,criterion,test_loader,losst, acct)
+        mt.validate(model,criterion,test_loader,losst, acct,testing=True)
 
     return acct[-1].data.item(), losstr,lossv,accv,losst,acct
 
@@ -72,9 +72,10 @@ def plot(losstr,lossv,accv,losst,acct):
     plt.legend(['Training Loss','Validation Accuracy (%)'])
 
     plt.savefig('images/q1_lr_{}.png'.format(learning_rate))
-    plt.show()
+
+    return plt
 
 if __name__ == "__main__":
     end_acc,losstr,lossv,accv,losst,acct = train()
-    print(end_acc,file=sys.stdout)
+    print('Final testing acc after {} epochs: {}'.format(epochs,end_acc),file=sys.stdout)
     plot(losstr,lossv,accv,losst,acct)

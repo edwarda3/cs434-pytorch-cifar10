@@ -85,7 +85,7 @@ def get_training_validation_loaders():
     train_dataset = TensorDataset(tensor_train_images,tensor_train_labels)
     validate_dataset = TensorDataset(tensor_validate_images,tensor_validate_labels)
 
-    train_dataloader = DataLoader(train_dataset,batch_size=20,shuffle=True)
+    train_dataloader = DataLoader(train_dataset,batch_size=32,shuffle=True)
     validate_dataloader = DataLoader(validate_dataset,batch_size=32)
 
     return train_dataloader,validate_dataloader

@@ -56,5 +56,5 @@ def validate(model,criterion,validation_loader,loss_vector, accuracy_vector, tes
     err_type='Validation'
     if(testing):
         err_type='Testing'
-    print('\n{} set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(err_type,
+    print('{} set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(err_type,
         val_loss, correct, len(validation_loader.dataset), accuracy),file=sys.stderr)
