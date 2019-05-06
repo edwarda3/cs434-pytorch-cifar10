@@ -51,7 +51,7 @@ criterion = nn.CrossEntropyLoss()
 
 print(model,file=sys.stderr)
 
-epochs = 10
+epochs = 50
 
 def train():
     import modeltraining as mt
