@@ -2,9 +2,9 @@ import subprocess
 import matplotlib.pyplot as plt
 
 default_learning_rate = .1
-default_dropout = .2
-default_momentum = .5
-default_weight_decay = .1
+default_dropout = .4
+default_momentum = .4
+default_weight_decay = .01
 
 def run(prog,args,result_vector,label):
     print(label)
@@ -48,7 +48,7 @@ for prog in progs:
     elif(prog == 'q3.py'):
         d_vals = [.1,.2,.3,.4,.5,.7,.9]
         m_vals = [.1,.2,.3,.4,.5,.7,.9]
-        wd_vals = [.1,.2,.3,.4,.5,.7,.9]
+        wd_vals = [.01,.02,.03,.04,.05,.07,.09]
 
         d_accs,m_accs,wd_accs = [],[],[]
 
@@ -59,11 +59,11 @@ for prog in progs:
             fullres['q3_d'].append((d,d_accs[-1]))
         fullres['q3_m'] = []
         for m in m_vals:
-            run(prog,[default_dropout,m,default_weight_decay],m_accs,'Running Q3: Momentum={}, fix Dropout, WD'.format(d))
+            run(prog,[default_dropout,m,default_weight_decay],m_accs,'Running Q3: Momentum={}, fix Dropout, WD'.format(m))
             fullres['q3_m'].append((m,m_accs[-1]))
         fullres['q3_wd'] = []
         for wd in wd_vals:
-            run(prog,[default_dropout,default_momentum,wd],wd_accs,'Running Q3: Weight Decay={}, fix Dropout, Momentum'.format(d))
+            run(prog,[default_dropout,default_momentum,wd],wd_accs,'Running Q3: Weight Decay={}, fix Dropout, Momentum'.format(wd))
             fullres['q3_wd'].append((wd,wd_accs[-1]))
         
         plt.figure(fig_num)
