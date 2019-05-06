@@ -4,4 +4,8 @@ __pycache__/
 cifar-10-batches-py/
 torch-venv/
 images/
+results/
 .DS_Store
+*.pdf
+*.tar
+*.zip
