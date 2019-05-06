@@ -10,9 +10,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 learning_rate = .1
-dropout = .2
-momentum = .1
-weight_decay = .2
+dropout = .4
+momentum = .4
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -48,13 +47,13 @@ class Net(nn.Module):
         x = self.fc2_drop(x)
         return F.log_softmax(self.fc3(x), dim=1)
 
-model = Net(32*32*3,100,10).to(device)
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=momentum, weight_decay=weight_decay)
+model = Net(32*32*3,50,10).to(device)
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=momentum)
 criterion = nn.CrossEntropyLoss()
 
 print(model,file=sys.stderr)
 
-epochs = 10
+epochs = 100
 
 def train():
     import modeltraining as mt
@@ -74,7 +73,7 @@ def plot(losstr,lossv,accv,losst,acct):
     plt.title('Loss & Accuracy over Epochs\nActivation: Relu\nTwo Hidden Layers, 50 nodes each')
     plt.legend(['Training Loss','Validation Accuracy (%)'])
 
-    plt.savefig('images/q4.png'.format(dropout,momentum,weight_decay))
+    plt.savefig('images/q4.png')
 
     return plt
 
