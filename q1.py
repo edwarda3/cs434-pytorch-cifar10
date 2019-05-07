@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
-import seaborn as sns
-sns.set()
 import sys
 
 import numpy as np
@@ -78,4 +76,7 @@ def plot(losstr,lossv,accv,losst,acct):
 if __name__ == "__main__":
     end_acc,losstr,lossv,accv,losst,acct = train()
     print('Final testing acc after {} epochs: {}'.format(epochs,end_acc),file=sys.stdout)
-    plot(losstr,lossv,accv,losst,acct)
+
+    import os
+    os.makedirs('images/',exist_ok=True)
+    plt = plot(losstr,lossv,accv,losst,acct)
