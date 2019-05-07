@@ -87,6 +87,8 @@ for prog in progs:
         run(prog,[],acc,'Running Q4')
         fullres['q4'] = [(2,acc[-1])]
 
+import os
+os.makedirs('results/',exist_ok=True)
 for key in fullres:
     print('{}: {}'.format(key,fullres[key]))
     with open('results/'+key+'.csv','w') as f:
